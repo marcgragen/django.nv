@@ -1,7 +1,7 @@
-django.nV
+django.nv
 =========
 
-django.nV is a purposefully vulnerable Django application provided by [nVisium](https://www.nvisium.com/).
+django.nv is a purposefully vulnerable Django application provided by [nVisium](https://www.nvisium.com/).
 
 ### System Requirements & Setup 
 
