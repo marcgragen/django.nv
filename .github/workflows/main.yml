@@ -55,16 +55,23 @@ jobs:
     steps:
       - run: echo "This is a deploy step."
       
-  oast:
+  oast-frontend:
     runs-on: ubuntu-20.04
     needs: test
     steps:
       - uses: actions/checkout@v2
 
-      - run: docker run --rm -v $(pwd):/src hysnsec/safety check -r requirements.txt --json | tee oast-results.json
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '10.x'
+
+      - run: npm install
+
+      - run: docker run --rm -v $(pwd):/src -w /src hysnsec/retire --outputformat json --outputpath retirejs-report.json --severity high
+        continue-on-error: true
 
       - uses: actions/upload-artifact@v2
         with:
-          name: Safety
-          path: oast-results.json
+          name: RetireJS
+          path: retirejs-report.json
         if: always()                        # what is this for?
